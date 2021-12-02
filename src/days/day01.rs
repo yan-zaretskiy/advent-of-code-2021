@@ -15,9 +15,8 @@ fn find_answer(values: &[u32]) -> (usize, usize) {
 }
 
 pub fn run() -> Result<(usize, usize)> {
-    let path = "data/day01.txt";
-    let values = std::fs::read_to_string(path)
-        .with_context(|| format!("Failed to read input file: {}", path))?
+    let input = include_str!("../../data/day01.txt");
+    let values = input
         .lines()
         .map(|v| Ok(v.parse::<u32>()?))
         .collect::<Result<Vec<_>>>()
