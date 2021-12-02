@@ -15,10 +15,10 @@ fn find_answer(values: &[u32]) -> (usize, usize) {
 }
 
 pub fn run() -> Result<(usize, usize)> {
-    let input = include_str!("../../data/day01.txt");
+    let input = include_str!("data/day01.txt");
     let values = input
         .lines()
-        .map(|v| Ok(v.parse::<u32>()?))
+        .map(|v| Ok(v.trim().parse::<u32>()?))
         .collect::<Result<Vec<_>>>()
         .with_context(|| "Parsing input as ints failed somewhere")?;
 
