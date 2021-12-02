@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use anyhow::{anyhow, Context, Error, Result};
+use anyhow::{bail, Context, Error, Result};
 use itertools::Itertools;
 
 #[derive(Debug, Default)]
@@ -55,7 +55,7 @@ impl FromStr for Command {
             "forward" => Ok(Command::Forward(dist)),
             "down" => Ok(Command::Down(dist)),
             "up" => Ok(Command::Up(dist)),
-            _ => Err(anyhow!("Illegal direction: {}", dir)),
+            _ => bail!("Illegal direction: {}", dir),
         }
     }
 }
