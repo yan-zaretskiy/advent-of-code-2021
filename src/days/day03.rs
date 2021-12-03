@@ -1,23 +1,17 @@
-use anyhow::{bail, Result};
+use anyhow::{Context, Result};
 
 #[derive(Debug)]
-struct BitCounter {
-    length: usize,
-    bit_counts: Vec<usize>,
+struct BitCounter<const N: usize> {
+    bit_counts: [usize; N],
     num_seen: usize,
 }
 
-impl BitCounter {
-    fn new(length: usize) -> Result<Self> {
-        if length > 16 {
-            bail!("This implementation is limited to 16-bits wide numbers.")
-        }
-
-        Ok(Self {
-            length,
-            bit_counts: vec![0; length],
+impl<const N: usize> BitCounter<N> {
+    fn new() -> Self {
+        Self {
+            bit_counts: [0; N],
             num_seen: 0,
-        })
+        }
     }
 
     // Don't want to make this generic for all integer widths.
@@ -36,26 +30,16 @@ impl BitCounter {
             }
         }
 
-        let mask = (1 << self.length) - 1;
+        let mask = (1 << N) - 1;
         (gamma, gamma ^ mask)
     }
 }
 
-fn find_answer(report: &str) -> Result<(usize, usize)> {
-    let mut lines = report.lines().peekable();
-    let length = if let Some(&line) = lines.peek() {
-        line.trim().chars().count()
-    } else {
-        bail!("Empty report!")
-    };
-
-    let mut counter = BitCounter::new(length)?;
-    for line in lines {
-        let line = line.trim();
-        if line.chars().count() != length {
-            bail!("All lines must have the same length!")
-        }
-        let value = u16::from_str_radix(line, 2)?;
+fn find_answer<const N: usize>(report: &str) -> Result<(usize, usize)> {
+    let mut counter = BitCounter::<N>::new();
+    for line in report.lines() {
+        let value = u16::from_str_radix(line.trim(), 2)
+            .with_context(|| "Report diagnostic cannot be parsed as a binary number")?;
         counter.count(value);
     }
 
@@ -64,7 +48,7 @@ fn find_answer(report: &str) -> Result<(usize, usize)> {
 
 pub fn run() -> Result<(usize, usize)> {
     let input = include_str!("data/day03.txt");
-    find_answer(input)
+    find_answer::<12>(input)
 }
 
 #[test]
@@ -82,7 +66,7 @@ fn test_01() {
     00010
     01010";
 
-    let (gamma, epsilon) = find_answer(input).unwrap();
+    let (gamma, epsilon) = find_answer::<5>(input).unwrap();
     assert_eq!(gamma, 22);
     assert_eq!(epsilon, 9);
 }
