@@ -2,6 +2,8 @@ pub mod days {
     automod::dir!(pub "src/days");
 }
 
+pub mod utils;
+
 fn main() -> anyhow::Result<()> {
     // Day 01
     println!("Day 01\n------\n");
@@ -17,8 +19,9 @@ fn main() -> anyhow::Result<()> {
 
     // Day 03
     println!("Day 03\n------\n");
-    let (gamma, epsilon) = days::day03::run()?;
+    let (gamma, epsilon, o2, co2) = days::day03::run()?;
     println!("Part 1 answer: {}", gamma * epsilon);
+    println!("Part 2 answer: {}", o2 as usize * co2 as usize);
 
     Ok(())
 }
