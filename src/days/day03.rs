@@ -7,7 +7,7 @@ fn has_one_bit_at(value: u16, pos: usize) -> bool {
     value & (1 << pos) != 0
 }
 
-fn make_gamma<const N: usize>(values: &[u16]) -> usize {
+fn make_gamma<const N: usize>(values: &[u16]) -> u16 {
     // count 1-bits in each position
     let mut bit_counts = [0; N];
     for v in values {
@@ -42,7 +42,7 @@ fn partiton_by_common_bit(values: &mut [u16], pos: usize) -> (&mut [u16], &mut [
     }
 }
 
-fn find_answer<const N: usize>(report: &str) -> Result<(usize, usize, u16, u16)> {
+fn find_answer<const N: usize>(report: &str) -> Result<(u16, u16, u16, u16)> {
     let mut values = report
         .lines()
         .map(|l| Ok(u16::from_str_radix(l.trim(), 2)?))
@@ -72,7 +72,7 @@ fn find_answer<const N: usize>(report: &str) -> Result<(usize, usize, u16, u16)>
     Ok((gamma, epsilon, values[0], *values.last().unwrap()))
 }
 
-pub fn run() -> Result<(usize, usize, u16, u16)> {
+pub fn run() -> Result<(u16, u16, u16, u16)> {
     let input = include_str!("data/day03.txt");
     find_answer::<12>(input)
 }

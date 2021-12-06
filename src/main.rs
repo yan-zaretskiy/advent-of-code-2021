@@ -20,8 +20,13 @@ fn main() -> anyhow::Result<()> {
     // Day 03
     println!("Day 03\n------\n");
     let (gamma, epsilon, o2, co2) = days::day03::run()?;
-    println!("Part 1 answer: {}", gamma * epsilon);
+    println!("Part 1 answer: {}", gamma as usize * epsilon as usize);
     println!("Part 2 answer: {}", o2 as usize * co2 as usize);
+
+    // Day 04
+    println!("Day 03\n------\n");
+    let score = days::day04::run().unwrap();
+    println!("Part 1 answer: {}", score);
 
     Ok(())
 }
