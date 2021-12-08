@@ -25,8 +25,9 @@ fn main() -> anyhow::Result<()> {
 
     // Day 04
     println!("Day 03\n------\n");
-    let score = days::day04::run().unwrap();
-    println!("Part 1 answer: {}", score);
+    let score = days::day04::run();
+    println!("Part 1 answer: {}", score.0);
+    println!("Part 1 answer: {}", score.1);
 
     Ok(())
 }
