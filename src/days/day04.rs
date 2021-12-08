@@ -55,6 +55,7 @@ impl Board {
             }
             return Some(number * self.data.iter().sum::<u32>());
         }
+
         None
     }
 }
@@ -72,6 +73,7 @@ fn find_answer(boards: &mut [Option<Board>], draws: &[u32]) -> (u32, u32) {
             }
         }
     }
+
     (scores[0], *scores.last().unwrap())
 }
 
