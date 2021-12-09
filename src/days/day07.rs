@@ -28,8 +28,11 @@ fn growing_cost(crabs: &[i32], pos: i32) -> u32 {
 
 fn find_answer_p2(crabs: &[i32]) -> u32 {
     // For part 2, the minimizer has to be within a fraction of the average.
-    let floor_avg = (crabs.iter().map(|c| *c as u32).sum::<u32>() / crabs.len() as u32) as i32;
-    growing_cost(crabs, floor_avg).min(growing_cost(crabs, floor_avg + 1))
+    let avg = (crabs.iter().map(|c| *c as u32).sum::<u32>() / crabs.len() as u32) as i32;
+    let candidates = [avg - 1, avg, avg + 1];
+    candidates
+        .iter()
+        .fold(u32::MAX, |acc, x| acc.min(growing_cost(crabs, *x)))
 }
 
 pub fn run() -> (u32, u32) {
