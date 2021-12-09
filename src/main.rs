@@ -41,5 +41,10 @@ fn main() -> anyhow::Result<()> {
     println!("Part 1 answer: {}", fishes.0);
     println!("Part 2 answer: {}\n", fishes.1);
 
+    // Day 07
+    println!("Day 07\n------\n");
+    let fuel = days::day07::run();
+    println!("Part 1 answer: {}", fuel.0);
+    println!("Part 2 answer: {}\n", fuel.1);
     Ok(())
 }
