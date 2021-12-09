@@ -33,7 +33,13 @@ fn main() -> anyhow::Result<()> {
     println!("Day 05\n------\n");
     let points = days::day05::run();
     println!("Part 1 answer: {}", points.0);
-    println!("Part 2 answer: {}", points.1);
+    println!("Part 2 answer: {}\n", points.1);
+
+    // Day 06
+    println!("Day 06\n------\n");
+    let fishes = days::day06::run();
+    println!("Part 1 answer: {}", fishes.0);
+    println!("Part 2 answer: {}\n", fishes.1);
 
     Ok(())
 }
